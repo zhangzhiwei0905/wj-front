@@ -25,14 +25,17 @@
 
 export default {
   name: 'Login',
-  data () {
+  data() {
     return {
-      loginForm: {},
+      loginForm: {
+        account: '18162628678',
+        password: '123456789Aa.'
+      },
       responseResult: []
     }
   },
   methods: {
-    login () {
+    login() {
       var _this = this
       this.axios
         .post('/login', {

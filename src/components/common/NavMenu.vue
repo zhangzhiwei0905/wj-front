@@ -1,15 +1,20 @@
 <template>
-  <el-menu
-    :default-active="'/index'"
-    active-text-color="red"
-    background-color="white"
-    mode="horizontal"
-    router
-    style="min-width: 1300px"
-    text-color="#222">
-    <el-menu-item v-for="(item,i) in navList" :key="i" :index="item.name">
-      {{ item.navItem }}
-    </el-menu-item>
+  <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+    <el-menu-item index="1">处理中心</el-menu-item>
+    <el-submenu index="2">
+      <template slot="title">我的工作台</template>
+      <el-menu-item index="2-1">选项1</el-menu-item>
+      <el-menu-item index="2-2">选项2</el-menu-item>
+      <el-menu-item index="2-3">选项3</el-menu-item>
+      <el-submenu index="2-4">
+        <template slot="title">选项4</template>
+        <el-menu-item index="2-4-1">选项1</el-menu-item>
+        <el-menu-item index="2-4-2">选项2</el-menu-item>
+        <el-menu-item index="2-4-3">选项3</el-menu-item>
+      </el-submenu>
+    </el-submenu>
+    <el-menu-item disabled index="3">消息中心</el-menu-item>
+    <el-menu-item index="4"><a href="https://www.ele.me" target="_blank">订单管理</a></el-menu-item>
     <a style="color: #222;float: right;padding: 20px;" v-on:click="logout">退出登陆</a>
     <span style="color: #222;font-weight: bold;float: right;padding: 20px;">欢迎你，{{
         this.$store.state.user.username
@@ -21,19 +26,14 @@
 <script>
 export default {
   name: 'NavMenu',
-  data () {
+  data() {
     return {
-      navList: [
-        {name: '/index', navItem: '首页'},
-        {name: '/jotter', navItem: '笔记本'},
-        {name: '/library', navItem: '图书馆'},
-        {name: '/admin', navItem: '个人中心'}
-      ],
-      username: 'zhangzhiwei'
+      username: 'zhangzhiwei',
+      activeIndex: "1"
     }
   },
   methods: {
-    logout () {
+    logout() {
       var _this = this
       this.axios
         .post('/logout')
@@ -47,6 +47,9 @@ export default {
         })
         .catch(failResponse => {
         })
+    },
+    handleSelect(id) {
+      this.activeIndex = id
     }
   }
 }

@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import toDoItemEditForm from './ToDoItemEditForm'
+import toDoItemEditForm from './ToDoItemEditForm.vue'
 
 export default {
   name: 'ToDoItem',
